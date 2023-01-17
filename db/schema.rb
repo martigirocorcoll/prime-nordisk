@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_17_172838) do
+ActiveRecord::Schema.define(version: 2023_01_17_172933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,14 @@ ActiveRecord::Schema.define(version: 2023_01_17_172838) do
     t.index ["user_id"], name: "index_participations_on_user_id"
   end
 
+  create_table "projects", force: :cascade do |t|
+    t.string "nombre"
+    t.bigint "investment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["investment_id"], name: "index_projects_on_investment_id"
+  end
+
   create_table "sales", force: :cascade do |t|
     t.string "descripcio"
     t.decimal "quantitat"
@@ -91,6 +99,7 @@ ActiveRecord::Schema.define(version: 2023_01_17_172838) do
   add_foreign_key "cobros", "sales"
   add_foreign_key "participations", "investments"
   add_foreign_key "participations", "users"
+  add_foreign_key "projects", "investments"
   add_foreign_key "sales", "investments"
   add_foreign_key "tasks", "investments"
 end
