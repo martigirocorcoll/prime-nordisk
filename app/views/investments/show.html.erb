@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Direccion:</strong>
+  <%= @investment.direccion %>
+</p>
+
+<p>
+  <strong>Precio venta:</strong>
+  <%= @investment.precio_venta %>
+</p>
+
+<p>
+  <strong>Precio adquisicion:</strong>
+  <%= @investment.precio_adquisicion %>
+</p>
+
+<p>
+  <strong>Gastos:</strong>
+  <%= @investment.gastos %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @investment.estado %>
+</p>
+
+<%= link_to 'Edit', edit_investment_path(@investment) %> |
+<%= link_to 'Back', investments_path %>
