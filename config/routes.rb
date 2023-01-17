@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :participations
   resources :investments
   devise_for :users
   root to: "pages#home"

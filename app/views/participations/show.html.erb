@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Quantitat invertida:</strong>
+  <%= @participation.quantitat_invertida %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @participation.data %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @participation.user %>
+</p>
+
+<p>
+  <strong>Investment:</strong>
+  <%= @participation.investment_id %>
+</p>
+
+<%= link_to 'Edit', edit_participation_path(@participation) %> |
+<%= link_to 'Back', participations_path %>
