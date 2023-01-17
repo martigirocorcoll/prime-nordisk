@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :pagos
   resources :pagadors
   resources :expenses
   resources :budgets
