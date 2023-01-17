@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nom:</strong>
+  <%= @task.nom %>
+</p>
+
+<p>
+  <strong>Data limit:</strong>
+  <%= @task.data_limit %>
+</p>
+
+<p>
+  <strong>Investment:</strong>
+  <%= @task.investment_id %>
+</p>
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>
