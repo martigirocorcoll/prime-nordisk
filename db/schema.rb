@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_17_173201) do
+ActiveRecord::Schema.define(version: 2023_01_17_173534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,18 @@ ActiveRecord::Schema.define(version: 2023_01_17_173201) do
     t.string "mail"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "expenses", force: :cascade do |t|
+    t.string "nom"
+    t.decimal "quantitat"
+    t.date "fecha"
+    t.bigint "project_id", null: false
+    t.bigint "provider_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_expenses_on_project_id"
+    t.index ["provider_id"], name: "index_expenses_on_provider_id"
   end
 
   create_table "investments", force: :cascade do |t|
@@ -119,6 +131,8 @@ ActiveRecord::Schema.define(version: 2023_01_17_173201) do
   add_foreign_key "budgets", "providers"
   add_foreign_key "cobros", "compradors"
   add_foreign_key "cobros", "sales"
+  add_foreign_key "expenses", "projects"
+  add_foreign_key "expenses", "providers"
   add_foreign_key "participations", "investments"
   add_foreign_key "participations", "users"
   add_foreign_key "projects", "investments"
