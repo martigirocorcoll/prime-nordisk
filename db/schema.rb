@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_17_173126) do
+ActiveRecord::Schema.define(version: 2023_01_17_173201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "budgets", force: :cascade do |t|
+    t.string "nom"
+    t.decimal "quantitat"
+    t.bigint "project_id", null: false
+    t.bigint "provider_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_budgets_on_project_id"
+    t.index ["provider_id"], name: "index_budgets_on_provider_id"
+  end
 
   create_table "cobros", force: :cascade do |t|
     t.decimal "quantitat"
@@ -104,6 +115,8 @@ ActiveRecord::Schema.define(version: 2023_01_17_173126) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "budgets", "projects"
+  add_foreign_key "budgets", "providers"
   add_foreign_key "cobros", "compradors"
   add_foreign_key "cobros", "sales"
   add_foreign_key "participations", "investments"
