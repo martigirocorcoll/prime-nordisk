@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_17_172443) do
+ActiveRecord::Schema.define(version: 2023_01_17_172601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cobros", force: :cascade do |t|
+    t.decimal "quantitat"
+    t.date "fecha"
+    t.bigint "comprador_id", null: false
+    t.bigint "sale_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["comprador_id"], name: "index_cobros_on_comprador_id"
+    t.index ["sale_id"], name: "index_cobros_on_sale_id"
+  end
 
   create_table "compradors", force: :cascade do |t|
     t.string "nombre"
@@ -67,6 +78,8 @@ ActiveRecord::Schema.define(version: 2023_01_17_172443) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "cobros", "compradors"
+  add_foreign_key "cobros", "sales"
   add_foreign_key "participations", "investments"
   add_foreign_key "participations", "users"
   add_foreign_key "sales", "investments"
