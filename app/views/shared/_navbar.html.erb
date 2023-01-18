@@ -4,25 +4,68 @@
       <%= image_tag "https://res.cloudinary.com/dd7x7bqya/image/upload/v1673948439/Captura_de_pantalla_2023-01-17_a_las_10.33.09_frmexo.png" %>
     <% end %>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <%if current_user && current_user.email == "marti@admin.com" %>
+      <div>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            +
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <div class="d-flex flex-row">
+            <div>
+              <%= link_to 'Nueva oportunidad de inversión', new_investment_path, class: "dropdown-item" %>
+              <%= link_to 'Nueva participación', new_participation_path, class: "dropdown-item" %>
+              <%= link_to 'Nueva venta', new_sale_path, class: "dropdown-item" %>
+              <%= link_to 'Nuevo proyecto', new_project_path, class: "dropdown-item" %>
+              <%= link_to 'Nuevo presupuesto', new_budget_path, class: "dropdown-item" %>
+              <%= link_to 'Nueva factura', new_expense_path, class: "dropdown-item" %>
+            </div>
+            <div>
+              <%= link_to 'Nueva tarea', new_task_path, class: "dropdown-item" %>
+              <%= link_to 'Nuevo proveedor', new_provider_path, class: "dropdown-item" %>
+              <%= link_to 'Nuevo pago', new_pago_path, class: "dropdown-item" %>
+              <%= link_to 'Nuevo pagador', new_pagador_path, class: "dropdown-item" %>
+              <%= link_to 'Nuevo cobro', new_cobro_path, class: "dropdown-item" %>
+              <%= link_to 'Nuevo comprador', new_comprador_path, class: "dropdown-item" %>
+              </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto">
+          <% if user_signed_in? %>
+            <li class="nav-item active" style="margin-right: 1em;">
+              <%= current_user.email %>
+            </li>
+            <li class="nav-item active">
+              <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-        <% if user_signed_in? %>
-          <li class="nav-item active" style="margin-right: 1em;">
-            <%= current_user.email %>
-          </li>
-          <li class="nav-item active">
-            <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
+    <% else %>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto">
+          <% if user_signed_in? %>
+            <li class="nav-item active" style="margin-right: 1em;">
+              <%= current_user.email %>
+            </li>
+            <li class="nav-item active">
+              <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   </div>
 </div>

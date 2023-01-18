@@ -6,8 +6,8 @@
   <div class="form-inputs">
     <%= f.input :quantitat_invertida %>
     <%= f.input :data %>
-    <%= f.input :user %>
-    <%= f.association :investment %>
+    <%= f.association :user, label_method: :email %>
+    <%= f.association :investment, label_method: :direccion %>
   </div>
 
   <div class="form-actions">

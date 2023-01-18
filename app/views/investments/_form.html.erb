@@ -5,10 +5,12 @@
 
   <div class="form-inputs">
     <%= f.input :direccion %>
+    <%= f.input :poblacion %>
+    <%= f.input :description %>
     <%= f.input :precio_venta %>
     <%= f.input :precio_adquisicion %>
     <%= f.input :gastos %>
-    <%= f.input :estado %>
+    <%= f.input :estado, collection: ["En análisis","Abierto para inversiones","En proceso","Terminado"]%>
   </div>
 
   <div class="form-actions">

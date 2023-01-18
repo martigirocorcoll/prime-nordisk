@@ -1,2 +1,13 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<h1>Prime Nordisk</h1>
+<h3>Encuentra todos los proyectos actuales</h3>
+
+<div class="grid-wrapper">
+  <% @investments.each do |investment|%>
+    <div class = "home-card">
+      <h3><%= investment.poblacion %></h3>
+      <%= investment.description %>
+      <h3><%= investment.rentabilidad %>%</h3>
+      <%= link_to "Abrir", investment %>
+    </div>
+  <% end %>
+</div>
