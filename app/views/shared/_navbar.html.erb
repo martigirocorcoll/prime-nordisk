@@ -4,7 +4,7 @@
       <%= image_tag "https://res.cloudinary.com/dd7x7bqya/image/upload/v1673948439/Captura_de_pantalla_2023-01-17_a_las_10.33.09_frmexo.png" %>
     <% end %>
 
-    <%if current_user && current_user.email == "marti@admin.com" %>
+    <%if current_user && current_user.admin == true %>
       <div>
         <div class="dropdown">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
