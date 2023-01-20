@@ -65,6 +65,6 @@ class CompradorsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def comprador_params
-      params.require(:comprador).permit(:nombre, :contacto, :mail)
+      params.require(:comprador).permit(:nombre, :contacto, :mail, :document)
     end
 end

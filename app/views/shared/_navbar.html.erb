@@ -8,7 +8,7 @@
       <div>
         <div class="dropdown">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            +
+            Crear
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <div class="d-flex flex-row">
@@ -29,6 +29,23 @@
               <%= link_to 'Nuevo comprador', new_comprador_path, class: "dropdown-item" %>
               </div>
           </div>
+          </div>
+        </div>
+      </div>
+            <div>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Ver
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div>
+              <%= link_to 'Oportunidades de inversión', root_path, class: "dropdown-item" %>
+              <%= link_to 'Tareas', tasks_path, class: "dropdown-item" %>
+              <%= link_to 'Ventas', sales_path, class: "dropdown-item" %>
+              <%= link_to 'Facturas', expenses_path, class: "dropdown-item" %>
+              <%= link_to 'Proveedores', providers_path, class: "dropdown-item" %>
+              <%= link_to 'Compradores', compradors_path, class: "dropdown-item" %>
+            </div>
           </div>
         </div>
       </div>

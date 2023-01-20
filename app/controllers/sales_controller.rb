@@ -65,6 +65,6 @@ class SalesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def sale_params
-      params.require(:sale).permit(:descripcio, :quantitat, :fecha, :investment_id)
+      params.require(:sale).permit(:descripcio, :quantitat, :fecha, :investment_id, :document)
     end
 end

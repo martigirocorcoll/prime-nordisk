@@ -1,41 +1,258 @@
 <p id="notice"><%= notice %></p>
+<div class="container">
+    <div class="tar">
+      <%= link_to 'Editar oportunidad de inversión', edit_investment_path(@investment), :class => "btn btn-secondary text-white" %>
+    </div>
+  <%# Título %>
+  <div>
+    <h1 class=" h1 text-center"><%= @investment.poblacion %></h1>
+    <h2 class="text-center"><%= @investment.description %></h2>
+  </div>
 
-<p>
-  <strong>Direccion:</strong>
-  <%= @investment.direccion %>
-</p>
+  <%# Foto / Datos %>
+  <div class="d-flex justify-content-between show_card_img">
+    <%=cl_image_tag @investment.photo.key, height: 300, width: 400, crop: :fill  %>
+    <div class="datos_in_photo" >
+      <div style="margin:1em;">
+      <h4>
+        <strong>Direccion:</strong>
+        <%= @investment.direccion %>, <%= @investment.poblacion %>
+      </h4>
+      <h4>
+        <strong>Estado:</strong>
+        <%= @investment.estado %>
+      </h4>
+      </div>
+      <br>
+      <h3 style="text-align: center;">Análisis económico</h3>
+      <div class="d-flex">
+        <div style="margin:1em;">
+          <p>
+            <strong>Venta:</strong>
+            <%= @investment.precio_venta.to_i %>€
+          </p>
+          <p>
+            <strong>Compra:</strong>
+            <%= @investment.precio_adquisicion.to_i %>€
+          </p>
+        </div>
+        <div style="margin:1em;">
+          <p>
+            <strong>Rentabilidad:</strong>
+            <%= @investment.rentabilidad.to_i %>%
+          </p>
+          <p>
+            <strong>Gastos:</strong>
+            <%= @investment.gastos.to_i %>€
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<p>
-  <strong>Poblacion:</strong>
-  <%= @investment.poblacion %>
-</p>
+  <iframe src=<%=@investment.linked_location%> width="100%" height="450" class="mapa" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-<p>
-  <strong>Descripción:</strong>
-  <%= @investment.description %>
-</p>
+  <%# Enlace de la hoja de analisis %>
+  <% if @investment.analisis.attached? %>
+    <div class = "text-center m-3 show_card p-3 mb-2 bg-success ">
+      <%= link_to("Ficha análisis", cl_image_path("#{@investment.analisis.key}"), class: "link text-white", style: "font-size:25px;") %>
+    </div>
+  <% end %>
 
+  <%# Documentos legales / Tareas %>
+  <div class= "d-flex justify-content-around">
+    <div class= "show_card">
+      <h2>Documentos legales</h2>
+      <%if @investment.documentos.exists? %>
+      <ul>
+        <%@investment.documentos.each_with_index do |documento, index| %>
+          <li><%= link_to("Documento #{index+1}", cl_image_path("#{documento.key}"), class:"link text-success") %></li>
+        <% end %>
+      </ul>
+      <% else %>
+        <p>No hay documentos guardados</p>
+      <% end %>
+    </div>
+    <div class= "show_card">
+      <div class="d-flex justify-content-between">
+        <h2>Tareas a realizar</h2>
+        <%= link_to '+', new_task_path, :class => "h2 link text-success" %>
+      </div>
+      <%if @investment.tasks.exists? %>
+      <br>
+      <ul>
+        <%@investment.tasks.each do |task| %>
+          <%= link_to 'o', task, method: :delete, data: { confirm: 'Seguro que quieres eliminar la tarea?' }, class: "text-danger link" %>  <%= task.data_limit %> - <%= task.nom %>
+        <% end %>
+      </ul>
+      <% else %>
+        <p>No hay tareas pendientes</p>
+      <% end %>
+    </div>
+  </div>
 
+  <%# Proyectos %>
+  <div class="show_card">
+      <div class="tar">
+      <%= link_to '+', new_project_path, :class => "btn btn-success text-white" %>
+      </div>
+    <h2 class="text-center pb-5">Proyectos</h2>
+    <% if @investment.projects.exists? %>
+      <% @investment.projects.each do |project| %>
+        <h3 class="text-center bg-secondary text-white"><%= project.nombre %>:</h3>
+        <div class="d-flex justify-content-around">
+          <div>
+            <h4 class="text-center text-secondary">Presupuestos</h4>
+              <% if project.budgets.exists? %>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Total</th>
+                      <th scope="col">Proveedor</th>
+                      <th scope="col">Archivo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <%project.budgets.each do |budget| %>
+                    <tr>
+                      <th scope="row"><%= budget.nom %></th>
+                      <td><%= budget.quantitat %>€</td>
+                      <td><%= budget.provider.nom_comercial %></td>
+                      <%if budget.document.attached %>
+                        <%= link_to("Doc", cl_image_path("#{budget.document.key}")) %>
+                      <% else %>
+                      <td>-</td>
+                      <% end %>
+                    </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              <% else %>
+                <p>No hay presupuestos guardados</p>
+              <% end %>
 
-<p>
-  <strong>Precio venta:</strong>
-  <%= @investment.precio_venta %>
-</p>
+          </div>
+          <div>
+            <h4 class="text-center text-secondary">Facturas</h4>
+               <% if project.expenses.exists? %>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Fecha</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Total</th>
+                      <th scope="col">Proveedor</th>
+                      <th scope="col">Archivo</th>
+                      <th scope="col">Pagado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <%project.expenses.each do |expense| %>
+                    <tr>
+                      <th scope="row"><%=expense.fecha%></th>
+                      <td><%= expense.nom %></td>
+                      <td><%= expense.quantitat %>€</td>
+                      <td><%= expense.provider.nom_comercial %></td>
+                        <%if expense.document.attached? %>
+                          <td><%= link_to("Doc", cl_image_path("#{expense.document.key}")) %></td>
+                        <% else %>
+                        <td>-</td>
+                        <% end %>
+                      <td><%= expense.x_pagado.to_i %>%</td>
+                    </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              <% else %>
+                <p>No hay facturas guardadas</p>
+              <% end %>
 
-<p>
-  <strong>Precio adquisicion:</strong>
-  <%= @investment.precio_adquisicion %>
-</p>
+          </div>
+        </div>
+        <br>
+      <% end %>
+    <% else %>
+      <p>No hay proyectos iniciados</p>
+    <% end %>
+    <div class="d-flex justify-content-around">
+      <%= link_to 'Nuevo presupuesto', new_budget_path, :class => "btn btn-secondary text-white" %>
+      <%= link_to 'Nueva factura', new_expense_path, :class => "btn btn-secondary text-white" %>
+    </div>
+  </div>
 
-<p>
-  <strong>Gastos:</strong>
-  <%= @investment.gastos %>
-</p>
+  <%# Ventas %>
+  <div class="show_card">
+    <div class="tar">
+      <%= link_to '+', new_sale_path, :class => "btn btn-success text-white" %>
+    </div>
+    <div>
+    <h2 class="text-center">Ventas</h2>
+    </div>
+    <% if @investment.sales.exists? %>
+    <br>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Descirpción</th>
+            <th scope="col">€</th>
+            <th scope="col">Documento</th>
+            <th scope="col">% Cobrado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%@investment.sales.each do |sale| %>
+            <tr>
+              <th scope="row"><%=sale.fecha%></th>
+              <td><%= sale.descripcio %></td>
+              <td><%= sale.quantitat %>€</td>
+              <%if sale.document.attached? %>
+                <%= link_to("Doc", cl_image_path("#{sale.document.key}")) %>
+              <% else %>
+              <td>-</td>
+              <% end %>
+              <td><%= sale.x_cobrado.to_i %>%</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+    No hay ventas
+    <% end %>
+  </div>
 
-<p>
-  <strong>Estado:</strong>
-  <%= @investment.estado %>
-</p>
+    <%# Participacions %>
+  <div class="show_card">
+    <div class="tar">
+      <%= link_to '+', new_participation_path, :class => "btn btn-success text-white" %>
+    </div>
+    <div>
+    <h2 class="text-center">Participaciones</h2>
+    </div>
+    <% if @investment.participations.exists? %>
+    <br>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">€</th>
+            <th scope="col">Inversor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%@investment.participations.each do |participation| %>
+            <tr>
+              <th scope="row"><%=participation.data%></th>
+              <td><%= participation.quantitat_invertida %>€</td>
+              <td><%= participation.user.email %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+    Nadie ha invertido aú
+    <% end %>
+  </div>
 
-<%= link_to 'Edit', edit_investment_path(@investment) %> |
-<%= link_to 'Back', investments_path %>
+</div>

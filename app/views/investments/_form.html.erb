@@ -6,11 +6,15 @@
   <div class="form-inputs">
     <%= f.input :direccion %>
     <%= f.input :poblacion %>
+    <%= f.input :google_location %>
     <%= f.input :description %>
     <%= f.input :precio_venta %>
     <%= f.input :precio_adquisicion %>
     <%= f.input :gastos %>
     <%= f.input :estado, collection: ["En análisis","Abierto para inversiones","En proceso","Terminado"]%>
+    <%= f.input :photo, as: :file %>
+    <%= f.input :analisis, as: :file %>
+    <%= f.input :documentos, as: :file, input_html: { multiple: true } %>
   </div>
 
   <div class="form-actions">
