@@ -1,29 +1,67 @@
 <p id="notice"><%= notice %></p>
+<div class="container">
+    <div class="d-flex justify-content-between">
+      <h1><%= @expense.nom %></h1>
+      <%= link_to 'Edit', edit_expense_path(@expense), :class => "btn btn-success text-white" %>
+    </div>
+    <br>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Proyecto</th>
+        <th scope="col">€</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Inversión</th>
+        <th scope="col">Proveedor</th>
+        <th scope="col">Documento</th>
+        <th scope="col">% Cobrado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @expense.nom %></td>
+        <td><%= @expense.project.nombre %></td>
+        <td><%= @expense.quantitat %></td>
+        <td><%= @expense.fecha %></td>
+        <td><%= @expense.project.investment.poblacion%>-<%= @expense.project.investment.direccion%></td>
+        <td><%= link_to "#{@expense.provider.nom_comercial}", provider_path(@expense.provider) %></td>
+        <%if @expense.document.attached? %>
+          <td><%= link_to("Doc", cl_image_path("#{@expense.document.key}")) %></td>
+        <% else %>
+          <td>-</td>
+        <% end %>
+        <td><%= @expense.x_pagado.to_i %>%</td>
+      <tr>
+    </tbody>
+  </table>
 
-<p>
-  <strong>Nom:</strong>
-  <%= @expense.nom %>
-</p>
+  <%# ver los pagos %>
+  <br>
+  <br>
+  <div class="container">
+    <div class="d-flex justify-content-between">
+      <h2 style= "color: gray;"> - Pagos</h2>
+      <%= link_to '+', new_pago_path, :class => "btn btn-success text-white" %>
+    </div>
+    <%@expense.pagos.each do |pago| %>
+      <table class="table table-dark table-sm table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">€</th>
+            <th scope="col">Pagador</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= link_to "#{pago.fecha}", edit_pago_path(pago) %></td>
+            <td><%= pago.quantitat %></td>
+            <td><%= link_to "#{pago.pagador.nombre}", edit_pagador_path(pago.pagador) %></td>
+          <tr>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 
-<p>
-  <strong>Quantitat:</strong>
-  <%= @expense.quantitat %>
-</p>
-
-<p>
-  <strong>Fecha:</strong>
-  <%= @expense.fecha %>
-</p>
-
-<p>
-  <strong>Project:</strong>
-  <%= @expense.project_id %>
-</p>
-
-<p>
-  <strong>Provider:</strong>
-  <%= @expense.provider_id %>
-</p>
-
-<%= link_to 'Edit', edit_expense_path(@expense) %> |
-<%= link_to 'Back', expenses_path %>
+</div>

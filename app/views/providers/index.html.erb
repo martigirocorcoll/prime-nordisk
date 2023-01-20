@@ -1,33 +1,36 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Providers</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Nom comercial</th>
-      <th>Pesona contacte</th>
-      <th>Telefon</th>
-      <th>Mail</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @providers.each do |provider| %>
+<div class="container">
+  <div class="d-flex justify-content-between">
+    <h1 class="text-center">Proveedores</h1>
+    <%= link_to 'Nuevo proveedor', new_provider_path, class:"btn btn-success text-white" %>
+  </div>
+  <br>
+  <table class="table table-hover">
+    <thead>
       <tr>
-        <td><%= provider.nom_comercial %></td>
-        <td><%= provider.pesona_contacte %></td>
-        <td><%= provider.telefon %></td>
-        <td><%= provider.mail %></td>
-        <td><%= link_to 'Show', provider %></td>
-        <td><%= link_to 'Edit', edit_provider_path(provider) %></td>
-        <td><%= link_to 'Destroy', provider, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Nom comercial</th>
+        <th>Pesona contacte</th>
+        <th>Telefon</th>
+        <th>Mail</th>
+        <th>Presupuestos</th>
+        <th>Facturas</th>
+        <th colspan="1"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-
-<%= link_to 'New Provider', new_provider_path %>
+    <tbody>
+      <% @providers.each do |provider| %>
+        <tr>
+          <td><%= link_to "#{provider.nom_comercial}", edit_provider_path(provider) %></td>
+          <td><%= provider.pesona_contacte %></td>
+          <td><%= provider.telefon %></td>
+          <td><%= provider.mail %></td>
+          <td><%= provider.budgets.count() %></td>
+          <td><%= provider.budgets.count() %></td>
+          <td><%= link_to 'x', provider, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

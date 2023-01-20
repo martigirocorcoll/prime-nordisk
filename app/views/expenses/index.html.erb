@@ -1,35 +1,43 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Expenses</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Nom</th>
-      <th>Quantitat</th>
-      <th>Fecha</th>
-      <th>Project</th>
-      <th>Provider</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @expenses.each do |expense| %>
+<div class="container">
+  <div class="d-flex justify-content-between">
+    <h1 class="text-center">Facturas</h1>
+    <%= link_to 'Nova factura', new_expense_path, class:"btn btn-success text-white" %>
+  </div>
+  <br>
+  <table class="table table-hover">
+    <thead>
       <tr>
-        <td><%= expense.nom %></td>
-        <td><%= expense.quantitat %></td>
-        <td><%= expense.fecha %></td>
-        <td><%= expense.project_id %></td>
-        <td><%= expense.provider_id %></td>
-        <td><%= link_to 'Show', expense %></td>
-        <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
-        <td><%= link_to 'Destroy', expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Descripcio</th>
+        <th>Quantitat</th>
+        <th>Fecha</th>
+        <th>Investment</th>
+        <th>Proveïdor</th>
+        <th>Document</th>
+        <th scope="col">% Cobrado</th>
+
+        <th colspan="1"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-
-<%= link_to 'New Expense', new_expense_path %>
+    <tbody>
+      <% @expenses.each do |expense| %>
+        <tr>
+          <td><%= link_to "#{expense.nom}", expense_path(expense) %></td>
+          <td><%= expense.quantitat %></td>
+          <td><%= expense.fecha %></td>
+          <td><%= link_to "#{expense.project.investment.poblacion} - #{expense.project.investment.direccion}", investment_path(expense.project.investment) %></td>
+          <td><%= link_to "#{expense.provider.nom_comercial}", provider_path(expense.provider) %></td>
+          <%if expense.document.attached? %>
+            <td><%= link_to("Doc", cl_image_path("#{expense.document.key}")) %></td>
+          <% else %>
+            <td>-</td>
+          <% end %>
+          <td><%= expense.x_pagado.to_i %>%</td>
+          <td><%= link_to 'x', expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

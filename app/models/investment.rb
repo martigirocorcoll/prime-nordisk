@@ -9,8 +9,12 @@ class Investment < ApplicationRecord
   has_many_attached :documentos
 
 def rentabilidad
+  unless self.precio_venta.nil? && self.precio_adquisicion.nil?
   beneficio = self.precio_venta - self.precio_adquisicion
   return (beneficio/self.precio_adquisicion) * 100
+  else
+    return 0
+  end
 end
 
 def linked_location

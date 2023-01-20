@@ -119,10 +119,10 @@
                       <th scope="row"><%= budget.nom %></th>
                       <td><%= budget.quantitat %>€</td>
                       <td><%= budget.provider.nom_comercial %></td>
-                      <%if budget.document.attached %>
-                        <%= link_to("Doc", cl_image_path("#{budget.document.key}")) %>
+                      <%if budget.document.attached? %>
+                        <td><%= link_to("Doc", cl_image_path("#{budget.document.key}")) %></td>
                       <% else %>
-                      <td>-</td>
+                        <td>-</td>
                       <% end %>
                     </tr>
                   <% end %>
@@ -208,12 +208,12 @@
               <td><%= sale.descripcio %></td>
               <td><%= sale.quantitat %>€</td>
               <%if sale.document.attached? %>
-                <%= link_to("Doc", cl_image_path("#{sale.document.key}")) %>
+                <td><%= link_to("Doc", cl_image_path("#{sale.document.key}")) %></td>
               <% else %>
               <td>-</td>
               <% end %>
               <td><%= sale.x_cobrado.to_i %>%</td>
-            </tr>
+            <tr>
           <% end %>
         </tbody>
       </table>

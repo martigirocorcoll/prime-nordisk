@@ -1,33 +1,41 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Sales</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Descripcio</th>
-      <th>Quantitat</th>
-      <th>Fecha</th>
-      <th>Investment</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @sales.each do |sale| %>
+<div class="container">
+  <div class="d-flex justify-content-between">
+    <h1 class="text-center">Ventas</h1>
+    <%= link_to 'Nova venta', new_sale_path, class:"btn btn-success text-white" %>
+  </div>
+  <br>
+  <table class="table table-hover">
+    <thead>
       <tr>
-        <td><%= sale.descripcio %></td>
-        <td><%= sale.quantitat %></td>
-        <td><%= sale.fecha %></td>
-        <td><%= sale.investment_id %></td>
-        <td><%= link_to 'Show', sale %></td>
-        <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
-        <td><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Descripcio</th>
+        <th>Quantitat</th>
+        <th>Fecha</th>
+        <th>Investment</th>
+        <th>Document</th>
+        <th scope="col">% Cobrado</th>
+
+        <th colspan="1"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-
-<%= link_to 'New Sale', new_sale_path %>
+    <tbody>
+      <% @sales.each do |sale| %>
+        <tr>
+          <td><%= link_to "#{sale.descripcio}", sale_path(sale) %></td>
+          <td><%= sale.quantitat %></td>
+          <td><%= sale.fecha %></td>
+          <td><%= link_to "#{sale.investment.poblacion} - #{sale.investment.direccion}", investment_path(sale.investment) %></td>
+          <%if sale.document.attached? %>
+            <td><%= link_to("Doc", cl_image_path("#{sale.document.key}")) %></td>
+          <% else %>
+            <td>-</td>
+          <% end %>
+          <td><%= sale.x_cobrado.to_i %>%</td>
+          <td><%= link_to 'x', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

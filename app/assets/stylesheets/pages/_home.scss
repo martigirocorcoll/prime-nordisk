@@ -10,6 +10,7 @@
 
 .grid-wrapper{
   display:flex;
+  overflow: scroll;
 }
 
 .card-body {
@@ -48,4 +49,9 @@
 
 .tar{
   text-align: right;
+}
+
+.boton_card_home{
+  margin: 0 auto;
+  width: 100%;
 }
