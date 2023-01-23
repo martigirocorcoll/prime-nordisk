@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_19_095912) do
+ActiveRecord::Schema.define(version: 2023_01_23_220634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,14 @@ ActiveRecord::Schema.define(version: 2023_01_19_095912) do
     t.string "mail"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.string "nom"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "investment_id"
+    t.index ["investment_id"], name: "index_documents_on_investment_id"
   end
 
   create_table "expenses", force: :cascade do |t|

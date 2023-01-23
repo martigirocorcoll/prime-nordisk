@@ -3,15 +3,17 @@ class Investment < ApplicationRecord
   has_many :users, through: :participations
   has_many :sales
   has_many :tasks
+  has_many :documents
   has_many :projects
   has_one_attached :photo
   has_one_attached :analisis
   has_many_attached :documentos
 
 def rentabilidad
-  unless self.precio_venta.nil? && self.precio_adquisicion.nil?
-  beneficio = self.precio_venta - self.precio_adquisicion
-  return (beneficio/self.precio_adquisicion) * 100
+  unless self.precio_venta.nil? && self.precio_adquisicion.nil? && self.gastos.nil?
+    gasto = self.precio_adquisicion + self.gastos
+    beneficio = self.precio_venta - gasto
+    return (beneficio / gasto) * 100
   else
     return 0
   end

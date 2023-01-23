@@ -62,11 +62,14 @@
   <%# Documentos legales / Tareas %>
   <div class= "d-flex justify-content-around">
     <div class= "show_card">
+      <div class="d-flex justify-content-between">
       <h2>Documentos legales</h2>
-      <%if @investment.documentos.exists? %>
+      <%= link_to "+", new_document_path, :class => "h2 link text-success" %>
+      </div>
+      <%if @investment.documents.exists? %>
       <ul>
-        <%@investment.documentos.each_with_index do |documento, index| %>
-          <li><%= link_to("Documento #{index+1}", cl_image_path("#{documento.key}"), class:"link text-success") %></li>
+        <%@investment.documents.each_with_index do |document| %>
+          <li><%= link_to("#{document.nom}", cl_image_path("#{document.pdf.key}"), class:"link text-success") %></li>
         <% end %>
       </ul>
       <% else %>
