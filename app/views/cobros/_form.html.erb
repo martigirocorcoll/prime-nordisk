@@ -6,8 +6,8 @@
   <div class="form-inputs">
     <%= f.input :quantitat %>
     <%= f.input :fecha %>
-    <%= f.association :comprador %>
-    <%= f.association :sale %>
+    <%= f.association :comprador, label_method: :nombre %>
+    <%= f.association :sale, label_method: :descripcio %>
   </div>
 
   <div class="form-actions">

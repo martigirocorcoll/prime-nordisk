@@ -7,7 +7,7 @@
     <%= f.input :descripcio %>
     <%= f.input :quantitat %>
     <%= f.input :fecha %>
-    <%= f.association :investment %>
+    <%= f.association :investment, label_method: :direccion %>
     <%= f.input :document, as: :file %>
   </div>
 

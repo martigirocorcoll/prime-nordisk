@@ -5,7 +5,7 @@
 
   <div class="form-inputs">
     <%= f.input :nombre %>
-    <%= f.association :investment %>
+    <%= f.association :investment, label_method: :direccion %>
   </div>
 
   <div class="form-actions">

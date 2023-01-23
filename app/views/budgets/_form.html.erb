@@ -6,8 +6,8 @@
   <div class="form-inputs">
     <%= f.input :nom %>
     <%= f.input :quantitat %>
-    <%= f.association :project %>
-    <%= f.association :provider %>
+    <%= f.association :project, label_method: :nombre %>
+    <%= f.association :provider, label_method: :nom_comercial %>
     <%= f.input :document, as: :file %>
   </div>
 
