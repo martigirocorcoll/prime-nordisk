@@ -8,11 +8,14 @@
     <% @investments.each do |investment|%>
         <div class="home-card" style="width: 18rem; margin: 1rem;">
           <% if investment.photo.attached? %>
-            <img class="card-img-top" src="<%=cl_image_path investment.photo.key%>" alt="Card image cap">
+            <img class="card-img-top" src="<%=cl_image_path investment.photo.key%>" alt="Card image cap" style="max-height:215px;">
             <% else %>
             <img class="card-img-top" src="https://res.cloudinary.com/dfm1w1uco/image/upload/v1674212652/no-propertyfound_fpnsxp.png" alt="Card image cap">
           <% end %>
           <div class="card-body">
+                <%= link_to investment, :action => 'go' do %>
+                  <button class="boton_card_home btn btn-success text-white">Descubrir</button>
+                <% end %>
                 <div class = "d-flex justify-content-between align-items-center">
                 <h5 class="card-title"><%= investment.poblacion %></h5>
                 <p class="btn btn-outline-success">+<%= investment.rentabilidad.to_i%>%</p>
@@ -20,9 +23,6 @@
                 <ul>
                   <li class="card-text"><%= investment.description %></li>
                 </ul>
-                <%= link_to investment, :action => 'go' do %>
-                  <button class="boton_card_home btn btn-success text-white">Descubrir</button>
-                <% end %>
             </div>
         </div>
     <% end %>
